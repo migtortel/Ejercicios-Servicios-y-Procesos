@@ -2,13 +2,19 @@ package ejercicio_15;
 
 public class Reponedor implements Runnable{
 
-	public Reponedor(int saldoCajero) {
-		// TODO Auto-generated constructor stub
+	private int saldo;
+	private Cajero caja;
+	
+	public Reponedor(int saldoCajero, Cajero cajero) {
+		this.saldo = saldoCajero;
+		this.caja = cajero;		
 	}
 
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
+		while(true) {
+			this.caja.reponerSaldo(saldo);
+		}
 		
 	}
 
