@@ -3,9 +3,7 @@ package ejercicio_15;
 public class Cajero {
 
 	private int saldoTotal;
-	private int turno_reponedor = 2;
-	private int turno_clientes = 1;
-	private int turno = turno_reponedor;
+	private boolean turno_reponedor = true;
 
 	public Cajero(int saldoCajero) {
 		this.saldoTotal = saldoCajero;
@@ -13,36 +11,37 @@ public class Cajero {
 
 	public synchronized void sacarDinero(int idCliente, int dinero) {
 		try {
-			if (turno == turno_clientes) {
+			if(!turno_reponedor){
 				if (saldoTotal - dinero >= 0) {
 					saldoTotal -= dinero;
 					System.out.println("Cliente: " + idCliente + ". He retirado " + dinero + " euros. Quedan "
 							+ saldoTotal + " euros.");
 					if (saldoTotal == 0)
-						turno = turno_reponedor;
+						turno_reponedor = true;
 				} else {
 					System.out.println("Cliente: " + idCliente + ". No puedo sacar " + dinero + " euros");
 				}
 				notify();
 				wait();
+			}else {
+				notify();
+				wait();
 			}
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
 	public synchronized void reponerSaldo(int saldo) {
-		if(turno == turno_reponedor) {
+		if(turno_reponedor){
 			this.saldoTotal = saldo;
 			System.out.println("Se han repuesto " + saldo + " euros.");
-			turno = turno_clientes;
+			turno_reponedor = false;
 		}else {
 			notify();
 			try {
 				wait();
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

@@ -24,15 +24,15 @@ public class Main_15 {
 		Scanner sc = new Scanner(System.in);
 		System.out.print("Número de clientes: ");
 		int numClientes = sc.nextInt();
-		int saldoCajero;
+		int cantidad;
 		
 		do {
 			System.out.print("Saldo de reposción del cajero: ");
-			saldoCajero = sc.nextInt();
-		}while((saldoCajero<=0) && (saldoCajero%20 !=0));
+			cantidad = sc.nextInt();
+		}while((cantidad<=0) || (cantidad%20 !=0));
 		sc.close();
-		Cajero cajero = new Cajero(saldoCajero);
-		Reponedor repo = new Reponedor(saldoCajero, cajero);
+		Cajero cajero = new Cajero(cantidad);
+		Reponedor repo = new Reponedor(cantidad, cajero);
 		new Thread(repo).start();
 		for (int i = 0; i < numClientes; i++) {
 			Cliente cli = new Cliente(i+1,cajero);
