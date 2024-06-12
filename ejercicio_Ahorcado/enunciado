@@ -1,0 +1,26 @@
+Se dispone de un almacen alque se le envia una palabra que sera la que tendrán que 
+adivinar los hilos "Jugador" y también se envía el número de jugadores que quieren participar.
+
+Los jugadores, representados por hilos, tendrán que intentar adivinar la palabra, probando 
+de forma aleatoria en cada intento una letra cada jugador y sera el almacén el que les informará 
+si han acertado o no.
+
+Si un jugador acierta la última letra de la palabra, el juego deberá terminar y forzar a acabar 
+a todos los jugadores que sigan jugando, es decir, que no hayan agotado todas las posibilidades.
+
+Cada jugador tiene 10 intentos para equivocarse. Si el jugador agota los 10 intentos deberá 
+salir del juego.
+
+El programa debe empezar con el jugador 0, por lo que el resto de jugadores si llegan antes 
+deberán esperar, pero una vez haya terminado el jugador 0, el resto de jugadores podrán 
+entrar indistintamente en cualquier orden para intentar adivinar la palabra, enviando cada 
+jugador una letra y su número de jugador. (No existe turno, pero cuando un jugador prueba 
+una letra, tanto si acierta como si no, si quedan jugadores, deberá esperar).
+
+Se deberá ir mostrando como queda la palabra en cada intento.
+
+Tanto si un jugador ha acertado como si no lo ha hecho, si quedan jugadores, deberá descansar 
+y dejar paso a otros jugadores que lo intenten antes de volver a intentarlo.
+
+Se pueden repetir las letras de búsqueda, no se deberá tener en cuenta si la letra ya se había 
+adivinado.
