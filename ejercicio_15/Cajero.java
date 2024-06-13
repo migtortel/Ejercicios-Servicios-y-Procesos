@@ -11,7 +11,7 @@ public class Cajero {
 
 	public synchronized void sacarDinero(int idCliente, int dinero) {
 		try {
-			if(!turno_reponedor){
+			if (!turno_reponedor) {
 				if (saldoTotal - dinero >= 0) {
 					saldoTotal -= dinero;
 					System.out.println("Cliente: " + idCliente + ". He retirado " + dinero + " euros. Quedan "
@@ -21,31 +21,27 @@ public class Cajero {
 				} else {
 					System.out.println("Cliente: " + idCliente + ". No puedo sacar " + dinero + " euros");
 				}
-				notify();
-				wait();
-			}else {
-				notify();
-				wait();
 			}
+			notifyAll();
+			wait();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 	}
 
 	public synchronized void reponerSaldo(int saldo) {
-		if(turno_reponedor){
+		if (turno_reponedor) {
 			this.saldoTotal = saldo;
 			System.out.println("Se han repuesto " + saldo + " euros.");
 			turno_reponedor = false;
-		}else {
-			notify();
-			try {
-				wait();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
 		}
-		
+		notifyAll();
+		try {
+			wait();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+
 	}
 
 }
